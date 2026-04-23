@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user preferences and basic information.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "preferredLanguage": { "type": "string", "enum": ["fr", "en", "wo", "ha", "bm"] },
+        "location": {
+          "type": "object",
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" },
+            "region": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Advice": {
+      "title": "Agricultural Advice",
+      "description": "AI-generated advice history for the user.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["disease_prevention", "planting", "harvest", "storage"] },
+        "content": { "type": "string" },
+        "crop": { "type": "string" },
+        "weatherAtTime": { "type": "object" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "type", "content", "timestamp"]
+    },
+    "Crop": {
+      "title": "User Crop",
+      "description": "Crops currently being grown by the farmer.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "variety": { "type": "string" },
+        "plantingDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["growing", "harvested", "stored"] },
+        "notes": { "type": "string" }
+      },
+      "required": ["userId", "name", "plantingDate"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and settings."
+    },
+    "/advice/{adviceId}": {
+      "schema": "Advice",
+      "description": "Historical AI advice records."
+    },
+    "/crops/{cropId}": {
+      "schema": "Crop",
+      "description": "Detailed tracks of user's crops."
+    }
+  }
+}

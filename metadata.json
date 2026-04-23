@@ -1,0 +1,8 @@
+{
+  "name": "AgriConseil West Africa",
+  "description": "AI-powered agricultural assistant for West African farmers, providing real-time weather, disease prevention tips, and post-harvest storage management with offline support.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": []
+}
